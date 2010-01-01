@@ -4,6 +4,7 @@ var site_configs = [
             "http://www.google.com/reader/"
             ],
         "poll": {
+            "frequency": 60000,
             "method": "atom",
             "atom_url": "http://www.google.com/reader/atom/user/-/state/com.google/reading-list?xt=user/-/state/com.google/read"
             },
@@ -32,6 +33,7 @@ var site_configs = [
             "https://mail.google.com/mail/"
             ],
         "poll": {
+            "frequency": 30000,
             "method": "atom",
             "atom_url": "https://mail.google.com/mail/feed/atom"
             },
@@ -159,51 +161,55 @@ var favicon = {
             var ctx = textedCanvas.getContext('2d');
             ctx.drawImage(iconCanvas, 0, 0);
             
-            ctx.fillStyle = "#fef4ac";
-            ctx.strokeStyle = "#dabc5c";
-            ctx.strokeWidth = 1;
+            if (unread > 0) {
+                ctx.fillStyle = "#fef4ac";
+                ctx.strokeStyle = "#dabc5c";
+                ctx.strokeWidth = 1;
             
-            var count = unread.length;
-            var bgHeight = this.pixelMaps.numbers[0].length;
-            var bgWidth = 0;
-            var padding = count > 2 ? 0 : 1;
+                var unreadString = unread.toString()
+                var count = unreadString.length;
+                var bgHeight = this.pixelMaps.numbers[0].length;
+                var bgWidth = 0;
+                var padding = count > 2 ? 0 : 1;
             
-            for(var index = 0; index < count; index++) {
-                bgWidth += this.pixelMaps.numbers[unread[index]][0].length;
-                if(index < count-1) {
-                    bgWidth += padding;
+                for(var index = 0; index < count; index++) {
+                    bgWidth += this.pixelMaps.numbers[unreadString[index]][0].length;
+                    if(index < count-1) {
+                        bgWidth += padding;
+                    }
                 }
-            }
-            bgWidth = bgWidth > textedCanvas.width-4 ? textedCanvas.width-4 : bgWidth;
+                bgWidth = bgWidth > textedCanvas.width-4 ? textedCanvas.width-4 : bgWidth;
             
-            ctx.fillRect(textedCanvas.width-bgWidth-4,2,bgWidth+4,bgHeight+4);
+                ctx.fillRect(textedCanvas.width-bgWidth-4,2,bgWidth+4,bgHeight+4);
             
             
-            var digit;
-            var digitsWidth = bgWidth;
-            for(var index = 0; index < count; index++) {
-                digit = unread[index];
-                if (this.pixelMaps.numbers[digit]) {
-                    var map = this.pixelMaps.numbers[digit];
-                    var height = map.length;
-                    var width = map[0].length;
+                var digit;
+                var digitsWidth = bgWidth;
+                for(var index = 0; index < count; index++) {
+                    digit = unreadString[index];
+                    if (this.pixelMaps.numbers[digit]) {
+                        var map = this.pixelMaps.numbers[digit];
+                        var height = map.length;
+                        var width = map[0].length;
                     
                     
-                    ctx.fillStyle = "#2c3323";
+                        ctx.fillStyle = "#2c3323";
                     
-                    for (var y = 0; y < height; y++) {
-                        for (var x = 0; x < width; x++) {
-                            if(map[y][x]) {
-                                ctx.fillRect(14- digitsWidth + x, y+4, 1, 1);
+                        for (var y = 0; y < height; y++) {
+                            for (var x = 0; x < width; x++) {
+                                if(map[y][x]) {
+                                    ctx.fillRect(14- digitsWidth + x, y+4, 1, 1);
+                                }
                             }
                         }
-                    }
                     
-                    digitsWidth -= width + padding;
-                }
-            }   
+                        digitsWidth -= width + padding;
+                    }
+                }   
             
-            ctx.strokeRect(textedCanvas.width-bgWidth-3.5,2.5,bgWidth+3,bgHeight+3);
+                ctx.strokeRect(textedCanvas.width-bgWidth-3.5,2.5,bgWidth+3,bgHeight+3);
+            
+            }
             
             this.textedCanvas[unread] = textedCanvas;
         }
@@ -232,7 +238,7 @@ var favicon = {
     },
 
     getUnreadCountIcon: function(unread) {
-        return this.drawUnreadCount(unread.toString()).toDataURL('image/png');
+        return this.drawUnreadCount(unread).toDataURL('image/png');
     },
 
     update: function(currentCount) {
@@ -240,7 +246,7 @@ var favicon = {
             return;
 
         this.previousCount = currentCount;
-        iconURL = this.getUnreadCountIcon(currentCount);
+        iconURL = this.getUnreadCountIcon(currentCount);            
 
         var link = document.createElement("link");
         link.type = "image/x-icon";
@@ -290,5 +296,5 @@ function updateFavicon() {
 if (site != null) {
     updateFavicon();
 
-    setInterval(updateFavicon, 5000);
+    setInterval(updateFavicon, site.poll.frequency);
 }
