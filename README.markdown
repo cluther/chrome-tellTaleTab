@@ -4,6 +4,4 @@ Simplified notification extension for a small but growing number of sites. Inspi
 ### Currently Supported Sites
 * Gmail
 * Google Reader
-
-### TODO
 * Google Wave
