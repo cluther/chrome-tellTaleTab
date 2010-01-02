@@ -6,7 +6,7 @@ var site_configs = [
         "poll": {
             "frequency": 60000,
             "method": "atom",
-            "atom_url": "http://www.google.com/reader/atom/user/-/state/com.google/reading-list?xt=user/-/state/com.google/read"
+            "atom_url": "http://www.google.com/reader/atom/user/-/state/com.google/reading-list?xt=user/-/state/com.google/read&n=99999"
             },
         "icon": [
             ['', '', '', '#b9dd93', '#b9dd93', '#b9dd93', '#b9dd93', '#b9dd93', '#b4d98d', '#add484', '#a5ce7c', '#a0ca75', '#a0c973', '', '', ''],
