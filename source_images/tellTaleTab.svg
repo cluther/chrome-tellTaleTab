@@ -279,6 +279,13 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 208.26505 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3148"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -287,18 +294,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="-4.1963011"
-     inkscape:cy="37.27925"
+     inkscape:zoom="0.99999999"
+     inkscape:cx="17.016903"
+     inkscape:cy="23.137114"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="799"
-     inkscape:window-height="729"
-     inkscape:window-x="92"
-     inkscape:window-y="62"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="1440"
+     inkscape:window-height="796"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata2821">
     <rdf:RDF>
@@ -307,7 +314,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -318,7 +325,7 @@
     <g
        inkscape:label="Layer 1"
        id="layer1-9"
-       transform="matrix(0.77391728,0,0,0.78978013,0.85612617,-4.0113644)">
+       transform="matrix(0.46434099,0,0,0.57928536,0.84504071,20.591651)">
       <rect
          inkscape:export-ydpi="52.5"
          inkscape:export-xdpi="52.5"
@@ -377,7 +384,7 @@
     <g
        style="display:inline"
        id="layer1-3"
-       transform="matrix(0.0982615,0,0,0.10007792,-7.2968828,-16.305707)">
+       transform="matrix(0.05959005,0,0,0.06394193,14.16179,3.7543108)">
       <rect
          style="opacity:0.47999998;fill:url(#radialGradient2418);fill-opacity:1;fill-rule:evenodd;stroke:none"
          id="rect2410"
@@ -544,21 +551,28 @@
       </g>
     </g>
     <rect
-       style="fill:#fef4ac;fill-opacity:1;stroke:#dabc5c;stroke-width:0.74600106;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#fef4ac;fill-opacity:1;stroke:#dabc5c;stroke-width:0.6789943;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3982"
-       width="19.699434"
-       height="12.274814"
-       x="25.328844"
-       y="5.800148" />
+       width="16.230907"
+       height="12.341821"
+       x="30.245089"
+       y="5.7666445" />
     <text
        xml:space="preserve"
        style="font-size:11px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="27.930717"
+       x="31.466251"
        y="16.180197"
        id="text3984"><tspan
          sodipodi:role="line"
          id="tspan3986"
-         x="27.930717"
+         x="31.466251"
          y="16.180197">13</tspan></text>
+    <image
+       y="1.4079003"
+       x="1.303715"
+       id="image3150"
+       height="28.311613"
+       width="28.311613"
+       xlink:href="file:///Users/chet/chrome-tellTaleTab/source_images/Google_Wave_logo.png" />
   </g>
 </svg>
