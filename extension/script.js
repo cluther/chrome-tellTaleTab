@@ -81,7 +81,7 @@ var site_configs = [
                             }
                         }
 
-                        favicon.update(unreadCount);
+                        favicon.update(unreadCount.toString());
                     }
                 }
             }
@@ -94,7 +94,7 @@ var site_configs = [
             "http://www.netvibes.com/"
         ],
         "poll": {
-            "frequency": 10000,
+            "frequency": 30000,
             "method": "custom",
             "doit": function() {
                 var unreadCount = 0;
@@ -103,7 +103,7 @@ var site_configs = [
                     unreadCount = parseInt(match[1]);
                 }
 
-                favicon.update(unreadCount);
+                favicon.update(unreadCount.toString());
             }
         },
         "icon": [
@@ -143,156 +143,18 @@ function matchSite() {
 var site = matchSite();
 
 var favicon = {
-    pixelMaps: {
-        numbers: [
-            [
-                [0,1,1,0],
-                [1,0,0,1],
-                [1,0,0,1],
-                [1,0,0,1],
-                [0,1,1,0]
-            ],
-            [
-                [0,1,0],
-                [1,1,0],
-                [0,1,0],
-                [0,1,0],
-                [1,1,1]
-            ],
-            [
-                [1,1,1,0],
-                [0,0,0,1],
-                [0,1,1,0],
-                [1,0,0,0],
-                [1,1,1,1]
-            ],
-            [
-                [1,1,1,0],
-                [0,0,0,1],
-                [0,1,1,0],
-                [0,0,0,1],
-                [1,1,1,0]
-            ],
-            [
-                [0,0,1,0],
-                [0,1,1,0],
-                [1,0,1,0],
-                [1,1,1,1],
-                [0,0,1,0]
-            ],
-            [
-                [1,1,1,1],
-                [1,0,0,0],
-                [1,1,1,0],
-                [0,0,0,1],
-                [1,1,1,0]
-            ],
-            [
-                [0,1,1,0],
-                [1,0,0,0],
-                [1,1,1,0],
-                [1,0,0,1],
-                [0,1,1,0]
-            ],
-            [
-                [1,1,1,1],
-                [0,0,0,1],
-                [0,0,1,0],
-                [0,1,0,0],
-                [0,1,0,0]
-            ],
-            [
-                [0,1,1,0],
-                [1,0,0,1],
-                [0,1,1,0],
-                [1,0,0,1],
-                [0,1,1,0]
-            ],
-            [
-                [0,1,1,0],
-                [1,0,0,1],
-                [0,1,1,1],
-                [0,0,0,1],
-                [0,1,1,0]
-            ],
-        ]
-    },
+    previousText: "",
+    docHead: document.getElementsByTagName("head")[0],
 
-    drawUnreadCount: function(unread) {
-        if(!this.textedCanvas) {
-            this.textedCanvas = [];
-        }
+    getBaseCanvas: function() {
+        if(!this.baseCanvas) {
+            this.baseCanvas = document.createElement('canvas');
+            this.baseCanvas.height = this.baseCanvas.width = 16;
 
-        if(!this.textedCanvas[unread]) {
-            var iconCanvas = this.getUnreadCanvas();
-            var textedCanvas = document.createElement('canvas');
-            textedCanvas.height = textedCanvas.width = iconCanvas.width;
-            var ctx = textedCanvas.getContext('2d');
-            ctx.drawImage(iconCanvas, 0, 0);
+            var ctx = this.baseCanvas.getContext('2d');
 
-            if (unread > 0) {
-                ctx.fillStyle = "#fef4ac";
-                ctx.strokeStyle = "#dabc5c";
-                ctx.strokeWidth = 1;
-
-                var unreadString = unread.toString()
-                var count = unreadString.length;
-                var bgHeight = this.pixelMaps.numbers[0].length;
-                var bgWidth = 0;
-                var padding = count > 2 ? 0 : 1;
-
-                for(var index = 0; index < count; index++) {
-                    bgWidth += this.pixelMaps.numbers[unreadString[index]][0].length;
-                    if(index < count-1) {
-                        bgWidth += padding;
-                    }
-                }
-                bgWidth = bgWidth > textedCanvas.width-4 ? textedCanvas.width-4 : bgWidth;
-
-                ctx.fillRect(textedCanvas.width-bgWidth-4,2,bgWidth+4,bgHeight+4);
-
-                var digit;
-                var digitsWidth = bgWidth;
-                for(var index = 0; index < count; index++) {
-                    digit = unreadString[index];
-                    if (this.pixelMaps.numbers[digit]) {
-                        var map = this.pixelMaps.numbers[digit];
-                        var height = map.length;
-                        var width = map[0].length;
-
-                        ctx.fillStyle = "#2c3323";
-
-                        for (var y = 0; y < height; y++) {
-                            for (var x = 0; x < width; x++) {
-                                if(map[y][x]) {
-                                    ctx.fillRect(14- digitsWidth + x, y+4, 1, 1);
-                                }
-                            }
-                        }
-
-                        digitsWidth -= width + padding;
-                    }
-                }
-
-                ctx.strokeRect(textedCanvas.width-bgWidth-3.5,2.5,bgWidth+3,bgHeight+3);
-
-            }
-
-            this.textedCanvas[unread] = textedCanvas;
-        }
-
-        return this.textedCanvas[unread];
-    },
-
-    getUnreadCanvas: function() {
-        if(!this.unreadCanvas) {
-            this.unreadCanvas = document.createElement('canvas');
-            this.unreadCanvas.height = this.unreadCanvas.width = 16;
-
-            var ctx = this.unreadCanvas.getContext('2d');
-
-            for (var y = 0; y < this.unreadCanvas.width; y++) {
-                for (var x = 0; x < this.unreadCanvas.height; x++) {
+            for (var y = 0; y < this.baseCanvas.width; y++) {
+                for (var x = 0; x < this.baseCanvas.height; x++) {
                     if (site.icon[y][x]) {
                         ctx.fillStyle = site.icon[y][x];
                         ctx.fillRect(x, y, 1, 1);
@@ -301,19 +163,67 @@ var favicon = {
             }
         }
 
-        return this.unreadCanvas;
+        return this.baseCanvas;
     },
 
-    getUnreadCountIcon: function(unread) {
-        return this.drawUnreadCount(unread).toDataURL('image/png');
+    drawText: function(text) {
+        if(!this.textedCanvas) {
+            this.textedCanvas = [];
+        }
+
+        if(!this.textedCanvas[text]) {
+            var iconCanvas = this.getBaseCanvas();
+            var textedCanvas = document.createElement('canvas');
+            textedCanvas.height = textedCanvas.width = iconCanvas.width;
+            var ctx = textedCanvas.getContext('2d');
+            ctx.drawImage(iconCanvas, 0, 0);
+
+            if (text && text != "0") {
+                var dim = ctx.measureText(text);
+                if (dim.width > 16) {
+                    text = "+";
+                    dim = ctx.measureText(text);
+                }
+
+                ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+                ctx.fillRect(15-dim.width, 0, dim.width+1, 10);
+
+                ctx.textBaseline = "top";
+                ctx.font = "4t Arial";
+                ctx.strokeStyle = 'black';
+                ctx.strokeText(text, 16-dim.width, -2);
+
+                ctx.strokeStyle = "rgba(0, 0, 0, 0.85)";
+                ctx.lineWidth = 0.5;
+                ctx.strokeRect(14-dim.width, -1, dim.width+3, 12);
+            }
+
+            this.textedCanvas[text] = textedCanvas;
+        }
+
+        return this.textedCanvas[text];
     },
 
-    update: function(currentCount) {
-        if (currentCount == this.previousCount)
+    getIcon: function(text) {
+        return this.drawText(text).toDataURL('image/png');
+    },
+
+    removeExisting: function() {
+        var links = this.docHead.getElementsByTagName("link");
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+            if (link.rel == 'SHORTCUT ICON') {
+                this.docHead.removeChild(link);
+            }
+        }
+    },
+
+    update: function(text) {
+        if (text == this.previousText)
             return;
 
-        this.previousCount = currentCount;
-        iconURL = this.getUnreadCountIcon(currentCount);
+        this.previousText = text;
+        iconURL = this.getIcon(text);
 
         var link = document.createElement("link");
         link.type = "image/x-icon";
@@ -330,20 +240,7 @@ var favicon = {
         hack_frame.id = 'hack_frame';
         document.body.appendChild(hack_frame);
         document.body.removeChild(hack_frame);
-    },
-
-    removeExisting: function() {
-        var links = this.docHead.getElementsByTagName("link");
-        for (var i = 0; i < links.length; i++) {
-            var link = links[i];
-            if (link.rel == 'SHORTCUT ICON') {
-                this.docHead.removeChild(link);
-            }
-        }
-    },
-
-    docHead:document.getElementsByTagName("head")[0],
-    previousCount:0
+    }
 }
 
 function updateFavicon() {
@@ -353,8 +250,8 @@ function updateFavicon() {
         xhr.send();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
-                favicon.update(
-                    xhr.responseXML.getElementsByTagName('entry').length);
+                var unread = xhr.responseXML.getElementsByTagName('entry');
+                favicon.update(unread.length.toString());
             }
         }
     }

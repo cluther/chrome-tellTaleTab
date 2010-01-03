@@ -8,6 +8,9 @@ Simplified notification extension for a small but growing number of sites. Inspi
 * Netvibes
 
 ### Changelog
+* `0.9.1 - 01/03/2009`  
+    Made the indicators a bit more pleasing to the eye.
+
 * `0.9.0 - 01/02/2009`  
     Added support for Netvibes.
 
