@@ -5,6 +5,7 @@ Simplified notification extension for a small but growing number of sites. Inspi
 * Gmail
 * Google Reader
 * Google Wave
+* Netvibes
 
 ### Changelog
 * `0.9.0 - 01/02/2009`  
