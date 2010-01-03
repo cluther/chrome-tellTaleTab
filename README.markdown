@@ -6,8 +6,19 @@ Simplified notification extension for a small but growing number of sites. Inspi
 * Google Reader
 * Google Wave
 * Netvibes
+* Facebook
+* Twitter
+
+### TODO
+* Google Calendar
+* Google Voice
+* Meebo
+* MySpace
 
 ### Changelog
+* `1.0.0 - 01/03/2009`  
+    Added Facebook and Twitter support.
+
 * `0.9.1 - 01/03/2009`  
     Made the indicators a bit more pleasing to the eye.
 

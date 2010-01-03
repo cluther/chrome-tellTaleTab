@@ -95,16 +95,8 @@ var site_configs = [
         ],
         "poll": {
             "frequency": 30000,
-            "method": "custom",
-            "doit": function() {
-                var unreadCount = 0;
-                var match = document.title.match("Netvibes \\(([0-9]+)\\)")
-                if (match && match.length == 2) {
-                    unreadCount = parseInt(match[1]);
-                }
-
-                favicon.update(unreadCount.toString());
-            }
+            "method": "titleMatch",
+            "regex": "Netvibes \\(([0-9]+)\\)"
         },
         "icon": [
             ['', '#93fb41', '#85fb27', '#85fb27', '#85fb27', '#85fb27', '#85fb27', '#85fb27', '#85fb27', '#85fb27', '#85fb27', '#85fb27', '#85fb27', '#85fb27', '#93fb41', ''],
@@ -123,6 +115,74 @@ var site_configs = [
             ['#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009', '#0ca009'],
             ['#27a826', '#089b07', '#089b07', '#089b07', '#089b07', '#089b07', '#089b07', '#089b07', '#089b07', '#089b07', '#089b07', '#089b07', '#089b07', '#089b07', '#089b07', '#27a826'],
             ['', '#23a324', '#049605', '#049605', '#049605', '#049605', '#049605', '#049605', '#049605', '#049605', '#049605', '#049605', '#049605', '#049605', '#23a324', '']
+        ]
+    },
+
+    { // Facebook
+        "matches": [
+            "http://www.facebook.com/"
+        ],
+        "poll": {
+            "frequency": 30000,
+            "method": "custom",
+            "doit": function() {
+                var unreadNotifications = '0';
+                var notif_span = document.getElementById('presence_notifications_count');
+                if (notif_span) {
+                    var count_strong = notif_span.getElementsByTagName('strong');
+                    if (count_strong) {
+                        unreadNotifications = count_strong[0].innerText;
+                    }
+                }
+                favicon.update(unreadNotifications);
+            }
+        },
+        "icon": [
+            ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+            ['', '#6179ac', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#6179ac', ''],
+            ['', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', ''],
+            ['', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#6078ab', '#ebeef4', '#ffffff', '#ffffff', '#3b5998', '#3b5998', ''],
+            ['', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#ebeef4', '#ffffff', '#ffffff', '#ffffff', '#3b5998', '#3b5998', ''],
+            ['', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#ffffff', '#ffffff', '#3b5998', '#3b5998', '#3b5998', '#3b5998', ''],
+            ['', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#ffffff', '#ffffff', '#3b5998', '#3b5998', '#3b5998', '#3b5998', ''],
+            ['', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#3b5998', '#3b5998', ''],
+            ['', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#ebeef4', '#ebeef4', '#ffffff', '#ffffff', '#ebeef4', '#ebeef4', '#3b5998', '#3b5998', ''],
+            ['', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#ffffff', '#ffffff', '#3b5998', '#3b5998', '#3b5998', '#3b5998', ''],
+            ['', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#ffffff', '#ffffff', '#3b5998', '#3b5998', '#3b5998', '#3b5998', ''],
+            ['', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#ffffff', '#ffffff', '#3b5998', '#3b5998', '#3b5998', '#3b5998', ''],
+            ['', '#45629e', '#6d84b4', '#6d84b4', '#6d84b4', '#6d84b4', '#6d84b4', '#6d84b4', '#6d84b4', '#ffffff', '#ffffff', '#6d84b4', '#6d84b4', '#6d84b4', '#45629e', ''],
+            ['', '#45629e', '#6d84b4', '#6d84b4', '#6d84b4', '#6d84b4', '#6d84b4', '#6d84b4', '#6d84b4', '#ffffff', '#ffffff', '#6d84b4', '#6d84b4', '#6d84b4', '#45629e', ''],
+            ['', '#6179ac', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#3b5998', '#6179ac', ''],
+            ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+        ]
+    },
+
+    { // Twitter
+        "matches": [
+            "http://twitter.com/"
+        ],
+        "poll": {
+            "frequency": 30000,
+            "method": "titleMatch",
+            "regex": "\\(([0-9]+)\\) Twitter"
+        },
+        "icon": [
+            ['', '', '#909090', '#d8d8d6', '#ece8e7', '#ebe9e8', '#dadada', '#7f7f7f', '', '', '', '', '', '', '', ''],
+            ['', '#606060', '#eeecec', '#ffffff', '#dff7ff', '#e4f9ff', '#ffffff', '#c3c3c3', '', '', '', '', '', '', '', ''],
+            ['', '#a4a4a4', '#fefdfc', '#c7efff', '#73d4fc', '#7bd6fc', '#dbf6ff', '#f8f4f2', '#858585', '', '#d4d4d4', '#bfbfbf', '', '', '', ''],
+            ['', '#b3b3b3', '#fafafa', '#a5e5ff', '#69d1fc', '#6ad1fc', '#b9eafe', '#fffefc', '#f3efee', '#f9f6f5', '#f6f3f3', '#efedec', '#d9d7d7', '#898989', '', ''],
+            ['', '#b2b2af', '#faf9f9', '#a7e6ff', '#6cd2fc', '#6ed3fc', '#a8e4fc', '#e1f6ff', '#e1f8ff', '#dff6ff', '#def6ff', '#ecfbff', '#ffffff', '#d4d2d2', '#404040', ''],
+            ['', '#b2b2af', '#faf9f9', '#a7e6ff', '#6dd2fc', '#73d4fc', '#75d5fc', '#78d6fc', '#78d6fc', '#78d6fc', '#76d5fc', '#7dd7fc', '#d0f3ff', '#fcf9f8', '#868686', ''],
+            ['', '#b2b2af', '#faf9f9', '#a7e6ff', '#6dd2fc', '#73d4fc', '#71d4fc', '#6ed3fc', '#6ed3fc', '#6ed3fc', '#6ed3fc', '#64cffc', '#a5e5ff', '#fdfcfc', '#979797', ''],
+            ['', '#b2b2af', '#faf9f9', '#a7e6ff', '#6dd2fc', '#72d4fc', '#79d6fc', '#80d8fc', '#7fd8fc', '#7fd8fc', '#7dd7fc', '#85dafd', '#d8f6ff', '#faf7f6', '#707070', ''],
+            ['', '#b2b2af', '#faf9f9', '#a7e6ff', '#6cd2fc', '#6ed3fc', '#aee7fd', '#effafe', '#ebf8fe', '#eaf8fe', '#eaf8fe', '#f3fcff', '#faf9f9', '#a3a1a1', '#171717', ''],
+            ['', '#b5b2b2', '#f9f9f9', '#a6e6ff', '#6cd2fc', '#6dd2fc', '#b9eafd', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#c2c0c0', '#373737', '', ''],
+            ['', '#a5a5a5', '#fcfafa', '#afe8ff', '#6cd2fc', '#6ed3fc', '#91ddfd', '#e7f7ff', '#f8fdff', '#f6fcff', '#f6fcff', '#f9fdff', '#fcfaf9', '#c5c5c5', '', ''],
+            ['', '#757575', '#fdf9f8', '#d6f4ff', '#72d3fc', '#70d3fc', '#71d3fc', '#80d8fd', '#8cdcfd', '#8bdcfd', '#89dbfd', '#92ddfd', '#dff8ff', '#fcf9f9', '#6d6d6d', ''],
+            ['', '', '#cacaca', '#ffffff', '#abe6fe', '#6cd2fc', '#6ed3fc', '#6ed3fc', '#6dd2fc', '#6dd2fc', '#6dd2fc', '#64d0fc', '#a7e5ff', '#fdfcfb', '#9d9d9d', ''],
+            ['', '', '#636363', '#ececeb', '#fdffff', '#b8ebff', '#81d8fd', '#73d4fc', '#73d4fc', '#73d4fc', '#71d4fc', '#75d5fc', '#c8f0ff', '#fffcfa', '#7b7b7b', ''],
+            ['', '', '', '#626262', '#e1dede', '#ffffff', '#f2feff', '#d9f6ff', '#d3f3ff', '#d4f3ff', '#d3f3ff', '#e1f8ff', '#ffffff', '#c9c7c7', '#242424', ''],
+            ['', '', '', '', '#4c4c4c', '#999999', '#ccc9c9', '#e6e2e1', '#f3efed', '#f3efed', '#f4f0ef', '#e5e2e1', '#adabab', '#353535', '', '']
         ]
     }
 ]
@@ -254,6 +314,15 @@ function updateFavicon() {
                 favicon.update(unread.length.toString());
             }
         }
+    }
+
+    else if (site.poll.method == "titleMatch") {
+        var unreadCount = "0";
+        var match = document.title.match(site.poll.regex);
+        if (match && match.length == 2) {
+            unreadCount = match[1];
+        }
+        favicon.update(unreadCount);
     }
 
     else if (site.poll.method == "custom") {
