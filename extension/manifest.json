@@ -1,6 +1,6 @@
 {
     "name": "Tell-Tale Tab",
-    "version": "0.8.1",
+    "version": "0.9.0",
     "description": "Notifies you of new content in popular web apps with the tab's favicon.",
     "icons": {
        "128": "icon_128.png",
@@ -11,7 +11,8 @@
         "matches": [
             "https://mail.google.com/mail/*",
             "http://www.google.com/reader/*",
-            "https://wave.google.com/wave/*"
+            "https://wave.google.com/wave/*",
+            "http://www.netvibes.com/"
         ]
     } ]
 }
