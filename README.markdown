@@ -8,6 +8,7 @@ Simplified notification extension for a small but growing number of sites. Inspi
 * Netvibes
 * Facebook
 * Twitter
+* SugarCRM
 
 ### TODO
 * Google Calendar
@@ -16,6 +17,9 @@ Simplified notification extension for a small but growing number of sites. Inspi
 * MySpace
 
 ### Changelog
+* `1.1.0 - 01/04/2009`  
+    Added SugarCRM support.
+
 * `1.0.0 - 01/03/2009`  
     Added Facebook and Twitter support.
 

@@ -1,11 +1,13 @@
 {
     "name": "Tell-Tale Tab",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Notifies you of new content in popular web apps with the tab's favicon.",
     "icons": {
        "128": "icon_128.png",
        "48": "icon_48.png"
     },
+    "options_page": "options.html",
+    "background_page": "background.html",
     "content_scripts": [ {
         "js": [ "script.js" ],
         "matches": [
@@ -14,7 +16,10 @@
             "https://wave.google.com/wave/*",
             "http://www.netvibes.com/",
             "http://www.facebook.com/*",
-            "http://twitter.com/*"
+            "http://twitter.com/*",
+
+            "https://*/index.php*", // SugarCRM URL is configurable
+            "http://*/index.php*"
         ]
     } ]
 }

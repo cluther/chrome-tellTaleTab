@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Tell-Tale Tab: Options</title></head>
+<style type="text/css">
+body {
+  background-color: #e1ddd9;
+  font-size: 12px;
+  color:#564b47;  
+  padding:20px;
+  margin:0px;
+  text-align: center;
+}
+
+table {
+    vertical-align: middle;	
+    margin: 0px auto;
+    padding: 0px;
+    width: 550px;
+    background-color: #ffffff;
+    border: 1px solid #564b47;
+}
+
+td {
+    vertical-align:top;
+}
+
+th {
+    text-align:left;
+    border-bottom:1px solid #564b47;
+}
+
+</style>
+<script type="text/javascript">
+
+// Saves options to localStorage.
+function save_options() {
+    var sugarcrm_baseUrl = document.getElementById("sugarcrm_baseUrl").value;
+    localStorage["sugarcrm_baseUrl"] = document.getElementById(
+            "sugarcrm_baseUrl").value;
+
+    // Update status to let user know options were saved.
+    var status = document.getElementById("status");
+    status.innerHTML = "Options Saved.";
+    setTimeout(function() {
+        status.innerHTML = "";
+    }, 750);
+}
+
+// Restores select box state to saved value from localStorage.
+function restore_options() {
+    var sugarcrm_baseUrl = localStorage["sugarcrm_baseUrl"];
+    if (sugarcrm_baseUrl) {
+        document.getElementById("sugarcrm_baseUrl").value = sugarcrm_baseUrl;
+    }
+}
+
+</script>
+
+<body onload="restore_options()">
+<img src="icon_48.png"/><br/>
+<h1>Tell-Tale Tab</h1>
+<hr/>
+
+<table>
+    <tr>
+        <th colspan="2">
+            <img src="images/sugarcrm_favicon.png"/>
+            <label for="sugarcrm_baseUrl">SugarCRM</label>
+        </th>
+    </tr><tr>
+        <td>Base URL</td>
+        <td>
+            <input id="sugarcrm_baseUrl" type="text" size="40"><br/>
+            <span style="font-size:8pt;">example: http://crm.example.com/</span>
+        </td>
+    </tr>
+</table>
+
+<br>
+<button onclick="save_options()">Save</button>
+</body>
+</html>

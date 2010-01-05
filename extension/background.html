@@ -1,0 +1,13 @@
+<html>
+<head>
+<script type="text/javascript">
+chrome.extension.onRequest.addListener(
+     function(request, sender, sendResponse) {
+         sendResponse({
+             sugarcrm_baseUrl: localStorage['sugarcrm_baseUrl']
+         });
+     }
+);
+</script>
+</head>
+</html>
