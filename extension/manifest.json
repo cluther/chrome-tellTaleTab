@@ -18,8 +18,7 @@
             "http://www.netvibes.com/",
             "http://www.facebook.com/*",
             "http://twitter.com/*",
-
-            "https://*/index.php*", // SugarCRM URL is configurable
+            "https://*/index.php*",
             "http://*/index.php*"
         ]
     } ]
